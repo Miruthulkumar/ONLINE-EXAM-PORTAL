@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - MK EXAM PORTAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary-color: #f9fafb;
+            --text-color: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: white;
+            color: var(--text-color);
+            padding: 1em 2em;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2em;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        
+        .logo i {
+            font-size: 1.2em;
+        }
+        
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3em 2em;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3em;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-muted);
+        }
+        
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2em 0 3em;
+        }
+        
+        .toggle-label {
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        
+        .toggle-label.active {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 3.5em;
+            height: 2em;
+            margin: 0 0.8em;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 1em;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 1.5em;
+            width: 1.5em;
+            left: 0.25em;
+            bottom: 0.25em;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(1.5em);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 2em;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5em 1em;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .pricing-header {
+            padding: 2em;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+        }
+        
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.25em;
+        }
+        
+        .pricing-period {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .pricing-body {
+            padding: 2em;
+        }
+        
+        .pricing-description {
+            margin-bottom: 2em;
+            color: var(--text-muted);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2em;
+        }
+        
+        .pricing-features li {
+            padding: 0.8em 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8em;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-features i.fas.fa-check {
+            color: var(--success-color);
+        }
+        
+        .pricing-features i.fas.fa-times {
+            color: var(--error-color);
+        }
+        
+        .btn {
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+        
+        .btn-outline {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .discount-badge {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 0.2em 0.8em;
+            border-radius: 1em;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5em;
+        }
+        
+        .faq-section {
+            margin: 5em 0;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 2.5em;
+        }
+        
+        .faq-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5em;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5em;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            padding: 1.5em;
+            background-color: white;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5em 1.5em;
+            color: var(--text-muted);
+            display: none;
+        }
+        
+        .enterprise-section {
+            background-color: white;
+            padding: 4em;
+            border-radius: 12px;
+            margin: 5em 0;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .enterprise-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .enterprise-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1em;
+        }
+        
+        .enterprise-section p {
+            color: var(--text-muted);
+            margin-bottom: 2em;
+            font-size: 1.1rem;
+        }
+        
+        .testimonial-quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin: 2em 0;
+            padding: 2em;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .testimonial-quote:before {
+            content: '"';
+            font-size: 5rem;
+            color: var(--primary-light);
+            position: absolute;
+            top: -0.2em;
+            left: 0.1em;
+            font-family: Georgia, serif;
+            opacity: 0.6;
+        }
+        
+        footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 4em 2em;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3em;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5em;
+            font-weight: 600;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75em;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 3em;
+            padding-top: 2em;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: minmax(0, 1fr);
+                max-width: 400px;
+            }
+            
+            .enterprise-section {
+                padding: 2em;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .navbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                MK EXAM PORTAL
+            </a>
+            <div class="nav-links">
+                <a href="features.html">Features</a>
+                <a href="pricing.html" class="active">Pricing</a>
+                <a href="#">Resources</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="page-header">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>Choose the plan that works best for your institution or organization. All plans include our core assessment features.</p>
+        </div>
+        
+        <div class="pricing-toggle">
+            <span class="toggle-label active" id="monthly-label">Monthly Billing</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="billing-toggle">
+                <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="annual-label">Annual Billing <span class="discount-badge">Save 20%</span></span>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-name">Basic</h3>
+                    <div class="pricing-price" id="basic-price">₹999</div>
+                    <div class="pricing-period" id="basic-period">per month, per admin</div>
+                </div>
+                <div class="pricing-body">
+                    <p class="pricing-description">Perfect for small educational institutions and individual educators.</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 500 student accounts</li>
+                        <li><i class="fas fa-check"></i> 10 concurrent exams</li>
+                        <li><i class="fas fa-check"></i> Basic question types</li>
+                        <li><i class="fas fa-check"></i> Automated grading</li>
+                        <li><i class="fas fa-check"></i> Standard reports</li>
+                        <li><i class="fas fa-times"></i> Advanced proctoring</li>
+                        <li><i class="fas fa-times"></i> Custom branding</li>
+                        <li><i class="fas fa-times"></i> API access</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="pricing-card popular">
+                <div class="popular-badge">Most Popular</div>
+                <div class="pricing-header">
+                    <h3 class="pricing-name">Professional</h3>
+                    <div class="pricing-price" id="pro-price">₹2,499</div>
+                    <div class="pricing-period" id="pro-period">per month, per admin</div>
+                </div>
+                <div class="pricing-body">
+                    <p class="pricing-description">Ideal for colleges, universities, and medium-sized training programs.</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 2,000 student accounts</li>
+                        <li><i class="fas fa-check"></i> 50 concurrent exams</li>
+                        <li><i class="fas fa-check"></i> All question types</li>
+                        <li><i class="fas fa-check"></i> Automated grading</li>
+                        <li><i class="fas fa-check"></i> Advanced analytics</li>
+                        <li><i class="fas fa-check"></i> Basic proctoring</li>
+                        <li><i class="fas fa-check"></i> Custom branding</li>
+                        <li><i class="fas fa-times"></i> API access</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-name">Enterprise</h3>
+                    <div class="pricing-price" id="enterprise-price">₹5,999</div>
+                    <div class="pricing-period" id="enterprise-period">per month, per admin</div>
+                </div>
+                <div class="pricing-body">
+                    <p class="pricing-description">For large institutions with advanced security and customization needs.</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited student accounts</li>
+                        <li><i class="fas fa-check"></i> Unlimited concurrent exams</li>
+                        <li><i class="fas fa-check"></i> All question types</li>
+                        <li><i class="fas fa-check"></i> Advanced AI grading</li>
+                        <li><i class="fas fa-check"></i> Custom analytics</li>
+                        <li><i class="fas fa-check"></i> Advanced proctoring</li>
+                        <li><i class="fas fa-check"></i> Custom branding</li>
+                        <li><i class="fas fa-check"></i> API access & integrations</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="enterprise-section">
+            <div class="enterprise-content">
+                <h2>Need a Custom Solution?</h2>
+                <p>We offer tailored plans for large institutions, government organizations, and special use cases. Our team will work with you to create a customized package that meets your specific requirements.</p>
+                
+                <div class="testimonial-quote">
+                    "The MK EXAM PORTAL team worked closely with us to develop a solution that addressed our unique security and compliance requirements. Their flexibility and responsiveness made all the difference."
+                </div>
+                
+                <a href="#" class="btn btn-primary" style="max-width: 250px;">Contact Our Sales Team</a>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <div class="faq-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I upgrade or downgrade my plan at any time?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can upgrade your plan at any time, and the changes will take effect immediately. If you need to downgrade, the change will apply at the end of your current billing cycle. There are no penalties for changing plans.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does billing work for student accounts?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Our pricing is based on the number of admin accounts (teachers, instructors, or test administrators) rather than students. Each plan includes a specific number of student accounts that can be assigned to your exams. If you need additional student capacity, you can add more at a nominal cost per additional 100 students.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you offer discounts for educational institutions?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer special pricing for schools, colleges, and universities. We provide a 25% discount for verified educational institutions. Please contact our sales team with your official institutional email to verify eligibility.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What payment methods do you accept?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept all major credit cards, debit cards, and net banking options. For Enterprise plans, we also support purchase orders and direct bank transfers. For educational institutions in India, we also accept UPI payments and can provide GST invoices for your records.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is there a free trial available?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer a 14-day free trial for all plans with full access to features. No credit card is required to start your trial. At the end of your trial period, you can select the plan that best fits your needs or reach out to our sales team for a customized solution.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>MK EXAM PORTAL</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="#">For Education</a></li>
+                    <li><a href="#">For Business</a></li>
+                    <li><a href="#">For Certification</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; MADE FOR 4TH SEM DBMS PROJECT.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle between monthly and annual pricing
+        document.getElementById('billing-toggle').addEventListener('change', function() {
+            const monthlyLabel = document.getElementById('monthly-label');
+            const annualLabel = document.getElementById('annual-label');
+            
+            if (this.checked) {
+                // Annual pricing
+                monthlyLabel.classList.remove('active');
+                annualLabel.classList.add('active');
+                
+                document.getElementById('basic-price').textContent = '₹9,590';
+                document.getElementById('basic-period').textContent = 'per year, per admin';
+                
+                document.getElementById('pro-price').textContent = '₹23,990';
+                document.getElementById('pro-period').textContent = 'per year, per admin';
+                
+                document.getElementById('enterprise-price').textContent = '₹57,590';
+                document.getElementById('enterprise-period').textContent = 'per year, per admin';
+            } else {
+                // Monthly pricing
+                monthlyLabel.classList.add('active');
+                annualLabel.classList.remove('active');
+                
+                document.getElementById('basic-price').textContent = '₹999';
+                document.getElementById('basic-period').textContent = 'per month, per admin';
+                
+                document.getElementById('pro-price').textContent = '₹2,499';
+                document.getElementById('pro-period').textContent = 'per month, per admin';
+                
+                document.getElementById('enterprise-price').textContent = '₹5,999';
+                document.getElementById('enterprise-period').textContent = 'per month, per admin';
+            }
+        });
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Toggle visibility
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                } else {
+                    answer.style.display = 'block';
+                    icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

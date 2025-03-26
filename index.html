@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK EXAM PORTAL - Online Assessment Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary-color: #f9fafb;
+            --text-color: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: white;
+            color: var(--text-color);
+            padding: 1em 2em;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2em;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        
+        .logo i {
+            font-size: 1.2em;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(79, 70, 229, 0.9), rgba(67, 56, 202, 0.9)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6em 2em;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5em;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2em;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+        }
+        
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3em 2em;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-bottom: 2em;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card-header {
+            background-color: white;
+            padding: 1.5em 2em;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .card-body {
+            padding: 2em;
+        }
+        
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            gap: 3em;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .auth-box {
+            flex: 1;
+            max-width: 450px;
+        }
+        
+        h2 {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 1em;
+            font-size: 1.5rem;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5em;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.8em 1em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            color: var(--text-color);
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        .btn {
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+        }
+        
+        .btn-lg {
+            padding: 1em 2em;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .option-buttons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+        
+        .social-login {
+            margin: 2em 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .social-login::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+        
+        .social-login span {
+            position: relative;
+            z-index: 2;
+            background-color: white;
+            padding: 0 1em;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            margin-top: 1em;
+        }
+        
+        .btn-social {
+            flex: 1;
+            padding: 0.8em;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-social:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-google {
+            color: #ea4335;
+        }
+        
+        .btn-microsoft {
+            color: #0078d4;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            margin: 5em 0;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2em;
+            border-radius: 12px;
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .feature-icon {
+            height: 60px;
+            width: 60px;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5em;
+            font-size: 1.5rem;
+        }
+        
+        .feature h3 {
+            margin: 1em 0;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        
+        .feature p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        .testimonials {
+            background-color: white;
+            padding: 5em 2em;
+            margin: 4em 0;
+            text-align: center;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            margin-top: 3em;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .testimonial {
+            background-color: var(--secondary-color);
+            padding: 2em;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            text-align: left;
+        }
+        
+        .testimonial-content {
+            font-size: 1.1rem;
+            margin-bottom: 1.5em;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .testimonial-info h4 {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.25em;
+        }
+        
+        .testimonial-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            background-color: var(--primary-light);
+            padding: 5em 2em;
+            text-align: center;
+            margin: 4em 0;
+            border-radius: 12px;
+        }
+        
+        .cta-section h2 {
+            color: var(--primary-dark);
+            font-size: 2rem;
+            margin-bottom: 1em;
+        }
+        
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 2em;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 4em 2em;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3em;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5em;
+            font-weight: 600;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75em;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 3em;
+            padding-top: 2em;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .navbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                MK EXAM PORTAL
+            </a>
+            <div class="nav-links">
+                <a href="features.html">Features</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="#">Resources</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <h1>Transform Your Assessment Experience</h1>
+        <p>MK EXAM PORTAL delivers secure, reliable online testing for educational institutions, certification bodies, and corporate training programs worldwide</p>
+        <div class="hero-buttons">
+            <button class="btn btn-lg btn-primary" onclick="showSection('login')">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </button>
+            <button class="btn btn-lg btn-secondary" onclick="showSection('register')">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+        </div>
+    </section>
+    
+    <main>
+        <section id="home">
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Testing Environment</h3>
+                    <p>Our platform includes advanced proctoring, browser lockdown, and AI-powered monitoring to ensure test integrity.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Comprehensive Analytics</h3>
+                    <p>Get detailed insights into performance with our advanced analytics dashboard and customizable reports.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-tablet-alt"></i>
+                    </div>
+                    <h3>Device Flexibility</h3>
+                    <p>Take exams on any device with our responsive platform that works seamlessly on desktops, tablets, and mobile phones.</p>
+                </div>
+            </div>
+            
+            <div class="testimonials">
+                <h2>Trusted by Education Leaders</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <p class="testimonial-content">"MK EXAM PORTAL has revolutionized our testing process. The platform is intuitive, reliable, and our students love the user-friendly interface."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Mohamed Ikraam Khan</h4>
+                                <p>Director of Education, Berkeley College</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-content">"The analytics dashboard has given us unprecedented insight into student performance. We can now identify knowledge gaps and improve our curriculum."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Sanjai Magilan</h4>
+                                <p>Assessment Coordinator, Tech Institute</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-content">"The security features in MK EXAM PORTAL give us complete confidence in our certification process. It's been a game-changer for our organization."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa Rodriguez" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Dinesh Dhasara</h4>
+                                <p>CEO, Professional Certification Board</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h2>Ready to transform your assessment experience?</h2>
+                <p>Join thousands of institutions that trust MK EXAM PORTAL for their testing needs.</p>
+                <button class="btn btn-lg btn-primary" onclick="showSection('register')">
+                    <i class="fas fa-rocket"></i> Get Started Today
+                </button>
+            </div>
+        </section>
+        
+        <div class="auth-container hidden" id="auth-forms">
+            <div class="auth-box" id="login">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-sign-in-alt"></i> Sign In to Your Account</h2>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Email Address</label>
+                                <input type="email" id="username" name="username" placeholder="you@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                            </div>
+                            <div style="text-align: right; margin-bottom: 1em;">
+                                <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">Forgot password?</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                        </form>
+                        
+                        <div class="social-login">
+                            <span>Or continue with</span>
+                        </div>
+                        
+                        <div class="social-buttons">
+                            <button class="btn-social btn-google">
+                                <i class="fab fa-google"></i>
+                            </button>
+                            <button class="btn-social btn-microsoft">
+                                <i class="fab fa-microsoft"></i>
+                            </button>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 2em;">
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                                Don't have an account? 
+                                <a href="#" onclick="showSection('register')" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">Create one</a>
+                            </p>
+                        </div>
+                        
+                        <button type="button" onclick="showSection('home')" class="btn btn-secondary" style="width: 100%; margin-top: 1em;">
+                            <i class="fas fa-arrow-left"></i> Back to Home
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="auth-box hidden" id="register">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user-plus"></i> Create Your Account</h2>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="full-name">Full Name</label>
+                                <input type="text" id="full-name" name="full-name" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password">Password</label>
+                                <input type="password" id="new-password" name="new-password" placeholder="8+ characters" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="account-type">Account Type</label>
+                                <select id="account-type" name="account-type" style="width: 100%; padding: 0.8em 1em; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background-color: white;">
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="administrator">Administrator</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-user-plus"></i> Create Account
+                            </button>
+                        </form>
+                        
+                        <div class="social-login">
+                            <span>Or continue with</span>
+                        </div>
+                        
+                        <div class="social-buttons">
+                            <button class="btn-social btn-google">
+                                <i class="fab fa-google"></i>
+                            </button>
+                            <button class="btn-social btn-microsoft">
+                                <i class="fab fa-microsoft"></i>
+                            </button>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 2em;">
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                                Already have an account? 
+                                <a href="#" onclick="showSection('login')" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">Sign in</a>
+                            </p>
+                        </div>
+                        
+                        <button type="button" onclick="showSection('home')" class="btn btn-secondary" style="width: 100%; margin-top: 1em;">
+                            <i class="fas fa-arrow-left"></i> Back to Home
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>MK EXAM PORTAL</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="#">For Education</a></li>
+                    <li><a href="#">For Business</a></li>
+                    <li><a href="#">For Certification</a></li>
+                    <li><a href="#">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy;MADE FOR 4TH SEM DBMS PROJECT.</p>
+        </div>
+    </footer>
+    
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('login').classList.add('hidden');
+            document.getElementById('register').classList.add('hidden');
+            
+            // Show auth container if needed
+            if (sectionId === 'login' || sectionId === 'register') {
+                document.getElementById('auth-forms').classList.remove('hidden');
+                
+                // Hide all auth boxes first
+                document.getElementById('login').classList.add('hidden');
+                document.getElementById('register').classList.add('hidden');
+                
+                // Show the selected auth box
+                document.getElementById(sectionId).classList.remove('hidden');
+            } else {
+                document.getElementById('auth-forms').classList.add('hidden');
+            }
+            
+            // Show the selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

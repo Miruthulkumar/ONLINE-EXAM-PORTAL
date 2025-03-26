@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - MK EXAM PORTAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary-color: #f9fafb;
+            --text-color: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: white;
+            color: var(--text-color);
+            padding: 1em 2em;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2em;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        
+        .logo i {
+            font-size: 1.2em;
+        }
+        
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3em 2em;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3em;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-muted);
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 3em;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 0.5em;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 1em 1.5em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        .search-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1.5em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .search-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .resource-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1em;
+            margin-bottom: 3em;
+        }
+        
+        .category-button {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 2em;
+            padding: 0.6em 1.2em;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-button:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-color: var(--primary-light);
+        }
+        
+        .category-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2em;
+            margin-bottom: 4em;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .resource-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .resource-content {
+            padding: 1.5em;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-tag {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 0.2em 0.8em;
+            border-radius: 1em;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1em;
+        }
+        
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .resource-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5em;
+            flex: 1;
+        }
+        
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+        
+        .resource-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        
+        .resource-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            transition: color 0.2s;
+        }
+        
+        .resource-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .video-tutorials {
+            margin: 4em 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5em;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 0.5em auto 0;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2em;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .play-button {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        
+        .video-card:hover .play-button {
+            transform: scale(1.1);
+            background-color: white;
+        }
+        
+        .video-content {
+            padding: 1.5em;
+        }
+        
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .video-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1em;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .webinars-section {
+            margin: 4em 0;
+            background-color: white;
+            padding: 3em;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .webinar-card {
+            display: flex;
+            gap: 2em;
+            padding: 2em 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .webinar-card:last-child {
+            border-bottom: none;
+        }
+        
+        .webinar-date {
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .webinar-day {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+        
+        .webinar-month {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        
+        .webinar-content {
+            flex: 1;
+        }
+        
+        .webinar-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .webinar-description {
+            color: var(--text-muted);
+            margin-bottom: 1em;
+        }
+        
+        .webinar-presenter {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            margin-bottom: 1em;
+        }
+        
+        .presenter-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .presenter-info h4 {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 0.2em;
+        }
+        
+        .presenter-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .btn {
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+        
+        .btn-outline {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .webinar-actions {
+            display: flex;
+            gap: 1em;
+        }
+        
+        .support-section {
+            margin: 4em 0;
+        }
+        
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2em;
+        }
+        
+        .support-option {
+            background: white;
+            border-radius: 12px;
+            padding: 2em;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .support-option:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .support-icon {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5em;
+        }
+        
+        .support-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8em;
+            color: var(--text-color);
+        }
+        
+        .support-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5em;
+        }
+        
+        .support-cta {
+            margin-top: 1em;
+        }
+        
+        .download-section {
+            background-color: var(--primary-light);
+            padding: 4em 2em;
+            border-radius: 12px;
+            margin: 4em 0;
+            text-align: center;
+        }
+        
+        .download-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .download-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1em;
+        }
+        
+        .download-description {
+            color: var(--text-muted);
+            margin-bottom: 2em;
+            font-size: 1.1rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+        
+        .resources-load-more {
+            text-align: center;
+            margin: 2em 0;
+        }
+        
+        footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 4em 2em;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3em;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5em;
+            font-weight: 600;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75em;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 3em;
+            padding-top: 2em;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .webinar-card {
+                flex-direction: column;
+                gap: 1em;
+            }
+            
+            .webinar-date {
+                min-width: auto;
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+                justify-content: flex-start;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .navbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                MK EXAM PORTAL
+            </a>
+            <div class="nav-links">
+                <a href="features.html">Features</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="resources.html" class="active">Resources</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="page-header">
+            <h1>Knowledge Resources</h1>
+            <p>Explore our comprehensive library of guides, tutorials, and support materials to help you get the most out of MK EXAM PORTAL.</p>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search resources...">
+                <button class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="resource-categories">
+            <button class="category-button active">All Resources</button>
+            <button class="category-button">Getting Started</button>
+            <button class="category-button">User Guides</button>
+            <button class="category-button">Best Practices</button>
+            <button class="category-button">Tutorials</button>
+            <button class="category-button">Case Studies</button>
+            <button class="category-button">Webinars</button>
+        </div>
+        
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Getting Started</span>
+                    <h3 class="resource-title">Administrator Quick Start Guide</h3>
+                    <p class="resource-description">Learn how to set up your institution account, create user roles, and configure your first exam in less than 30 minutes.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 15 Mar 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">User Guide</span>
+                    <h3 class="resource-title">Creating Effective Assessments</h3>
+                    <p class="resource-description">Comprehensive guide to designing assessments that accurately measure student knowledge and skills.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 02 Feb 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Best Practices</span>
+                    <h3 class="resource-title">Proctoring and Exam Security</h3>
+                    <p class="resource-description">Learn how to use our advanced proctoring features to maintain academic integrity in online assessments.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 20 Jan 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1553484771-047a44eee27a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Tutorial</span>
+                    <h3 class="resource-title">Understanding Analytics Dashboard</h3>
+                    <p class="resource-description">Deep dive into the analytics features and how to interpret data to improve teaching and learning outcomes.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 10 Mar 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Case Study</span>
+                    <h3 class="resource-title">Delhi University Success Story</h3>
+                    <p class="resource-description">How Delhi University transformed their assessment process and improved student outcomes using MK EXAM PORTAL.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 05 Mar 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Case Study <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Best Practices</span>
+                    <h3 class="resource-title">Question Bank Management</h3>
+                    <p class="resource-description">Strategies for creating, organizing, and maintaining effective question banks for different assessment types.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 22 Feb 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="resources-load-more">
+            <button class="btn btn-outline">
+                <i class="fas fa-spinner"></i> Load More Resources
+            </button>
+        </div>
+        
+        <div class="video-tutorials">
+            <h2 class="section-title">Video Tutorials</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Setting Up Your First Exam</h3>
+                        <p class="video-description">A step-by-step guide to creating and configuring your first online assessment.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock"></i> 12:45</span>
+                            <span><i class="far fa-eye"></i> 12,354 views</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Advanced Question Types</h3>
+                        <p class="video-description">Learn how to use interactive question formats like drag-and-drop, hotspot, and code execution.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock"></i> 17:20</span>
+                            <span><i class="far fa-eye"></i> 8,761 views</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Mastering Proctoring Features</h3>
+                        <p class="video-description">A comprehensive guide to setting up and managing online proctoring for secure assessments.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock"></i> 15:10</span>
+                            <span><i class="far fa-eye"></i> 9,832 views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="webinars-section">
+            <h2 class="section-title">Upcoming Webinars</h2>
+            
+            <div class="webinar-card">
+                <div class="webinar-date">
+                    <div class="webinar-day">28</div>
+                    <div class="webinar-month">Apr</div>
+                </div>
+                <div class="webinar-content">
+                    <h3 class="webinar-title">Best Practices for Remote Assessment in Higher Education</h3>
+                    <p class="webinar-description">Join us for an in-depth discussion on strategies for maintaining academic integrity and engagement in online examinations at the university level.</p>
+                    <div class="webinar-presenter">
+                        <img src="https://randomuser.me/api/portraits/men/84.jpg" alt="Prof. Raj Sharma" class="presenter-avatar">
+                        <div class="presenter-info">
+                            <h4>Prof. Raj Sharma</h4>
+                            <p>Assessment Director, National Education Council</p>
+                        </div>
+                    </div>
+                    <div class="webinar-actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Register Now
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="webinar-card">
+                <div class="webinar-date">
+                    <div class="webinar-day">15</div>
+                    <div class="webinar-month">May</div>
+                </div>
+                <div class="webinar-content">
+                    <h3 class="webinar-title">AI-Powered Analytics: Using Data to Improve Learning Outcomes</h3>
+                    <p class="webinar-description">Discover how to leverage MK EXAM PORTAL's advanced analytics to identify student knowledge gaps and enhance teaching strategies.</p>
+                    <div class="webinar-presenter">
+                        <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Dr. Priya Patel" class="presenter-avatar">
+                        <div class="presenter-info">
+                            <h4>Dr. Priya Patel</h4>
+                            <p>Educational Technology Researcher, Innovation Institute</p>
+                        </div>
+                    </div>
+                    <div class="webinar-actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Register Now
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="webinar-card">
+                <div class="webinar-date">
+                    <div class="webinar-day">03</div>
+                    <div class="webinar-month">Jun</div>
+                </div>
+                <div class="webinar-content">
+                    <h3 class="webinar-title">Implementing MK EXAM PORTAL at Scale: Case Study with IIT Bombay</h3>
+                    <p class="webinar-description">Learn how IIT Bombay successfully rolled out MK EXAM PORTAL to over 10,000 students and streamlined their assessment process.</p>
+                    <div class="webinar-presenter">
+                        <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Dr. Anil Kumar" class="presenter-avatar">
+                        <div class="presenter-info">
+                            <h4>Dr. Anil Kumar</h4>
+                            <p>Chief Technology Officer, IIT Bombay</p>
+                        </div>
+                    </div>
+                    <div class="webinar-actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Register Now
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="support-section">
+            <h2 class="section-title">Support Resources</h2>
+            
+            <div class="support-options">
+                <div class="support-option">
+                    <div class="support-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="support-title">Documentation</h3>
+                    <p class="support-description">Comprehensive documentation covering all aspects of the MK EXAM PORTAL platform.</p>
+                    <a href="#" class="btn btn-outline support-cta">
+                        <i class="fas fa-external-link-alt"></i> Browse Docs
+                    </a>
+                </div>
+                
+                <div class="support-option">
+                    <div class="support-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="support-title">Community Forum</h3>
+                    <p class="support-description">Connect with other educators, share ideas, and get help from the community.</p>
+                    <a href="#" class="btn btn-outline support-cta">
+                        <i class="fas fa-external-link-alt"></i> Join Forum
+                    </a>
+                </div>
+                
+                <div class="support-option">
+                    <div class="support-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="support-title">Customer Support</h3>
+                    <p class="support-description">Contact our dedicated support team for personalized assistance.</p>
+                    <a href="#" class="btn btn-outline support-cta">
+                        <i class="fas fa-external-link-alt"></i> Get Help
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-section">
+            <div class="download-content">
+                <h2 class="download-title">Ready-to-Use Assessment Templates</h2>
+                <p class="download-description">Save time with our professionally designed assessment templates. Simply download, customize, and deploy to your students.</p>
+                
+                <div class="download-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-file-alt"></i> Subject-Specific Templates
+                    </a>
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-file-alt"></i> Exam Format Templates
+                    </a>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--primary-dark);">All templates are fully customizable and aligned with educational standards</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>MK EXAM PORTAL</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="#">For Education</a></li>
+                    <li><a href="#">For Business</a></li>
+                    <li><a href="#">For Certification</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="resources.html">Help Center</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; MADE FOR 4TH SEM DBMS PROJECT.</p>
+        </div>
+    </footer>
+    <!-- filepath: c:\Users\saimi\Desktop\FRONT END ONLY\resources.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - MK EXAM PORTAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary-color: #f9fafb;
+            --text-color: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: white;
+            color: var(--text-color);
+            padding: 1em 2em;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2em;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        
+        .logo i {
+            font-size: 1.2em;
+        }
+        
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3em 2em;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3em;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-muted);
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 3em;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 0.5em;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 1em 1.5em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        .search-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1.5em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .search-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .resource-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1em;
+            margin-bottom: 3em;
+        }
+        
+        .category-button {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 2em;
+            padding: 0.6em 1.2em;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-button:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-color: var(--primary-light);
+        }
+        
+        .category-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2em;
+            margin-bottom: 4em;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .resource-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .resource-content {
+            padding: 1.5em;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-tag {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 0.2em 0.8em;
+            border-radius: 1em;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1em;
+        }
+        
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .resource-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5em;
+            flex: 1;
+        }
+        
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+        
+        .resource-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        
+        .resource-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            transition: color 0.2s;
+        }
+        
+        .resource-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .video-tutorials {
+            margin: 4em 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5em;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 0.5em auto 0;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2em;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .play-button {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        
+        .video-card:hover .play-button {
+            transform: scale(1.1);
+            background-color: white;
+        }
+        
+        .video-content {
+            padding: 1.5em;
+        }
+        
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .video-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1em;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .webinars-section {
+            margin: 4em 0;
+            background-color: white;
+            padding: 3em;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .webinar-card {
+            display: flex;
+            gap: 2em;
+            padding: 2em 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .webinar-card:last-child {
+            border-bottom: none;
+        }
+        
+        .webinar-date {
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .webinar-day {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+        
+        .webinar-month {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        
+        .webinar-content {
+            flex: 1;
+        }
+        
+        .webinar-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+        }
+        
+        .webinar-description {
+            color: var(--text-muted);
+            margin-bottom: 1em;
+        }
+        
+        .webinar-presenter {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            margin-bottom: 1em;
+        }
+        
+        .presenter-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .presenter-info h4 {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 0.2em;
+        }
+        
+        .presenter-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .btn {
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+        
+        .btn-outline {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .webinar-actions {
+            display: flex;
+            gap: 1em;
+        }
+        
+        .support-section {
+            margin: 4em 0;
+        }
+        
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2em;
+        }
+        
+        .support-option {
+            background: white;
+            border-radius: 12px;
+            padding: 2em;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .support-option:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .support-icon {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5em;
+        }
+        
+        .support-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8em;
+            color: var(--text-color);
+        }
+        
+        .support-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5em;
+        }
+        
+        .support-cta {
+            margin-top: 1em;
+        }
+        
+        .download-section {
+            background-color: var(--primary-light);
+            padding: 4em 2em;
+            border-radius: 12px;
+            margin: 4em 0;
+            text-align: center;
+        }
+        
+        .download-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .download-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1em;
+        }
+        
+        .download-description {
+            color: var(--text-muted);
+            margin-bottom: 2em;
+            font-size: 1.1rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+        
+        .resources-load-more {
+            text-align: center;
+            margin: 2em 0;
+        }
+        
+        footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 4em 2em;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3em;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5em;
+            font-weight: 600;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75em;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 3em;
+            padding-top: 2em;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .webinar-card {
+                flex-direction: column;
+                gap: 1em;
+            }
+            
+            .webinar-date {
+                min-width: auto;
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+                justify-content: flex-start;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .navbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                MK EXAM PORTAL
+            </a>
+            <div class="nav-links">
+                <a href="features.html">Features</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="resources.html" class="active">Resources</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="page-header">
+            <h1>Knowledge Resources</h1>
+            <p>Explore our comprehensive library of guides, tutorials, and support materials to help you get the most out of MK EXAM PORTAL.</p>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search resources...">
+                <button class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="resource-categories">
+            <button class="category-button active">All Resources</button>
+            <button class="category-button">Getting Started</button>
+            <button class="category-button">User Guides</button>
+            <button class="category-button">Best Practices</button>
+            <button class="category-button">Tutorials</button>
+            <button class="category-button">Case Studies</button>
+            <button class="category-button">Webinars</button>
+        </div>
+        
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Getting Started</span>
+                    <h3 class="resource-title">Administrator Quick Start Guide</h3>
+                    <p class="resource-description">Learn how to set up your institution account, create user roles, and configure your first exam in less than 30 minutes.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 15 Mar 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">User Guide</span>
+                    <h3 class="resource-title">Creating Effective Assessments</h3>
+                    <p class="resource-description">Comprehensive guide to designing assessments that accurately measure student knowledge and skills.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 02 Feb 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Best Practices</span>
+                    <h3 class="resource-title">Proctoring and Exam Security</h3>
+                    <p class="resource-description">Learn how to use our advanced proctoring features to maintain academic integrity in online assessments.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 20 Jan 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1553484771-047a44eee27a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Tutorial</span>
+                    <h3 class="resource-title">Understanding Analytics Dashboard</h3>
+                    <p class="resource-description">Deep dive into the analytics features and how to interpret data to improve teaching and learning outcomes.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 10 Mar 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Case Study</span>
+                    <h3 class="resource-title">Delhi University Success Story</h3>
+                    <p class="resource-description">How Delhi University transformed their assessment process and improved student outcomes using MK EXAM PORTAL.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 05 Mar 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Case Study <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-image" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="resource-content">
+                    <span class="resource-tag">Best Practices</span>
+                    <h3 class="resource-title">Question Bank Management</h3>
+                    <p class="resource-description">Strategies for creating, organizing, and maintaining effective question banks for different assessment types.</p>
+                    <div class="resource-meta">
+                        <div class="resource-date">
+                            <i class="far fa-calendar"></i>
+                            <span>Updated: 22 Feb 2025</span>
+                        </div>
+                        <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="resources-load-more">
+            <button class="btn btn-outline">
+                <i class="fas fa-spinner"></i> Load More Resources
+            </button>
+        </div>
+        
+        <div class="video-tutorials">
+            <h2 class="section-title">Video Tutorials</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Setting Up Your First Exam</h3>
+                        <p class="video-description">A step-by-step guide to creating and configuring your first online assessment.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock"></i> 12:45</span>
+                            <span><i class="far fa-eye"></i> 12,354 views</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Advanced Question Types</h3>
+                        <p class="video-description">Learn how to use interactive question formats like drag-and-drop, hotspot, and code execution.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock"></i> 17:20</span>
+                            <span><i class="far fa-eye"></i> 8,761 views</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Mastering Proctoring Features</h3>
+                        <p class="video-description">A comprehensive guide to setting up and managing online proctoring for secure assessments.</p>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock"></i> 15:10</span>
+                            <span><i class="far fa-eye"></i> 9,832 views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="webinars-section">
+            <h2 class="section-title">Upcoming Webinars</h2>
+            
+            <div class="webinar-card">
+                <div class="webinar-date">
+                    <div class="webinar-day">28</div>
+                    <div class="webinar-month">Apr</div>
+                </div>
+                <div class="webinar-content">
+                    <h3 class="webinar-title">Best Practices for Remote Assessment in Higher Education</h3>
+                    <p class="webinar-description">Join us for an in-depth discussion on strategies for maintaining academic integrity and engagement in online examinations at the university level.</p>
+                    <div class="webinar-presenter">
+                        <img src="https://randomuser.me/api/portraits/men/84.jpg" alt="Prof. Raj Sharma" class="presenter-avatar">
+                        <div class="presenter-info">
+                            <h4>Prof. Raj Sharma</h4>
+                            <p>Assessment Director, National Education Council</p>
+                        </div>
+                    </div>
+                    <div class="webinar-actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Register Now
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="webinar-card">
+                <div class="webinar-date">
+                    <div class="webinar-day">15</div>
+                    <div class="webinar-month">May</div>
+                </div>
+                <div class="webinar-content">
+                    <h3 class="webinar-title">AI-Powered Analytics: Using Data to Improve Learning Outcomes</h3>
+                    <p class="webinar-description">Discover how to leverage MK EXAM PORTAL's advanced analytics to identify student knowledge gaps and enhance teaching strategies.</p>
+                    <div class="webinar-presenter">
+                        <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Dr. Priya Patel" class="presenter-avatar">
+                        <div class="presenter-info">
+                            <h4>Dr. Priya Patel</h4>
+                            <p>Educational Technology Researcher, Innovation Institute</p>
+                        </div>
+                    </div>
+                    <div class="webinar-actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Register Now
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="webinar-card">
+                <div class="webinar-date">
+                    <div class="webinar-day">03</div>
+                    <div class="webinar-month">Jun</div>
+                </div>
+                <div class="webinar-content">
+                    <h3 class="webinar-title">Implementing MK EXAM PORTAL at Scale: Case Study with IIT Bombay</h3>
+                    <p class="webinar-description">Learn how IIT Bombay successfully rolled out MK EXAM PORTAL to over 10,000 students and streamlined their assessment process.</p>
+                    <div class="webinar-presenter">
+                        <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Dr. Anil Kumar" class="presenter-avatar">
+                        <div class="presenter-info">
+                            <h4>Dr. Anil Kumar</h4>
+                            <p>Chief Technology Officer, IIT Bombay</p>
+                        </div>
+                    </div>
+                    <div class="webinar-actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus"></i> Register Now
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="support-section">
+            <h2 class="section-title">Support Resources</h2>
+            
+            <div class="support-options">
+                <div class="support-option">
+                    <div class="support-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="support-title">Documentation</h3>
+                    <p class="support-description">Comprehensive documentation covering all aspects of the MK EXAM PORTAL platform.</p>
+                    <a href="#" class="btn btn-outline support-cta">
+                        <i class="fas fa-external-link-alt"></i> Browse Docs
+                    </a>
+                </div>
+                
+                <div class="support-option">
+                    <div class="support-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="support-title">Community Forum</h3>
+                    <p class="support-description">Connect with other educators, share ideas, and get help from the community.</p>
+                    <a href="#" class="btn btn-outline support-cta">
+                        <i class="fas fa-external-link-alt"></i> Join Forum
+                    </a>
+                </div>
+                
+                <div class="support-option">
+                    <div class="support-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="support-title">Customer Support</h3>
+                    <p class="support-description">Contact our dedicated support team for personalized assistance.</p>
+                    <a href="#" class="btn btn-outline support-cta">
+                        <i class="fas fa-external-link-alt"></i> Get Help
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-section">
+            <div class="download-content">
+                <h2 class="download-title">Ready-to-Use Assessment Templates</h2>
+                <p class="download-description">Save time with our professionally designed assessment templates. Simply download, customize, and deploy to your students.</p>
+                
+                <div class="download-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-file-alt"></i> Subject-Specific Templates
+                    </a>
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-file-alt"></i> Exam Format Templates
+                    </a>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--primary-dark);">All templates are fully customizable and aligned with educational standards</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>MK EXAM PORTAL</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="#">For Education</a></li>
+                    <li><a href="#">For Business</a></li>
+                    <li><a href="#">For Certification</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="resources.html">Help Center</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; MADE FOR 4TH SEM DBMS PROJECT.</p>
+        </div>
+    </footer>
+    
