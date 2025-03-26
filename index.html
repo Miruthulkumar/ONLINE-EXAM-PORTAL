@@ -90,7 +90,7 @@
         }
         
         .hero {
-            background: linear-gradient(rgba(79, 70, 229, 0.9), rgba(67, 56, 202, 0.9)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background: linear-gradient(rgba(79, 70, 229, 0.9), rgba(67, 56, 202, 0.9)), url('https://images.careerindia.com/college-photos/5902/about_1629454887.jpg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -615,7 +615,7 @@
                         <h2><i class="fas fa-sign-in-alt"></i> Sign In to Your Account</h2>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="loginForm" onsubmit="authenticateUser(event)">
                             <div class="form-group">
                                 <label for="username">Email Address</label>
                                 <input type="email" id="username" name="username" placeholder="you@example.com" required>
@@ -766,28 +766,125 @@
     
     <script>
         function showSection(sectionId) {
-            // Hide all sections
-            document.getElementById('home').classList.add('hidden');
-            document.getElementById('login').classList.add('hidden');
-            document.getElementById('register').classList.add('hidden');
+            // Show auth container
+            document.getElementById('auth-forms').classList.remove('hidden');
             
-            // Show auth container if needed
-            if (sectionId === 'login' || sectionId === 'register') {
-                document.getElementById('auth-forms').classList.remove('hidden');
-                
-                // Hide all auth boxes first
-                document.getElementById('login').classList.add('hidden');
-                document.getElementById('register').classList.add('hidden');
-                
-                // Show the selected auth box
-                document.getElementById(sectionId).classList.remove('hidden');
-            } else {
+            // Handle home section
+            if (sectionId === 'home') {
                 document.getElementById('auth-forms').classList.add('hidden');
+                return;
             }
             
-            // Show the selected section
-            document.getElementById(sectionId).classList.remove('hidden');
+            // For login/register sections
+            if (sectionId === 'login') {
+                document.getElementById('login').classList.remove('hidden');
+                document.getElementById('register').classList.add('hidden');
+            } else if (sectionId === 'register') {
+                document.getElementById('login').classList.add('hidden');
+                document.getElementById('register').classList.remove('hidden');
+            }
+        }
+        
+        function authenticateUser(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Admin credentials
+            if (username === 'miruthul@gmail.com' && password === 'miruthul') {
+                window.location.href = 'admin-panel.html';
+                return;
+            }
+            
+            // Student credentials
+            if (username === 'student@gmail.com' && password === 'student') {
+                window.location.href = 'student-panel.html';
+                return;
+            }
+            
+            // Invalid credentials
+            alert('Invalid username or password. Please try again.');
         }
     </script>
+    <script>
+    // Make sure these functions are available in the global scope
+    window.showSection = function(sectionId) {
+        console.log("showSection called with: " + sectionId);
+        // Show auth container
+        const authContainer = document.getElementById('auth-forms');
+        authContainer.classList.remove('hidden');
+        
+        // Handle home section
+        if (sectionId === 'home') {
+            authContainer.classList.add('hidden');
+            return;
+        }
+        
+        // For login/register sections
+        const loginSection = document.getElementById('login');
+        const registerSection = document.getElementById('register');
+        
+        if (sectionId === 'login') {
+            loginSection.classList.remove('hidden');
+            if(registerSection) registerSection.classList.add('hidden');
+        } else if (sectionId === 'register') {
+            if(loginSection) loginSection.classList.add('hidden');
+            registerSection.classList.remove('hidden');
+        }
+    };
+    
+    window.authenticateUser = function(event) {
+        event.preventDefault();
+        console.log("Authentication attempt");
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        console.log("Username: " + username);
+        // Don't log password in a real app
+        
+        // Admin credentials
+        if (username === 'miruthul@gmail.com' && password === 'miruthul') {
+            console.log("Admin authenticated");
+            window.location.href = 'admin-panel.html';
+            return;
+        }
+        
+        // Student credentials
+        if (username === 'student@gmail.com' && password === 'student') {
+            console.log("Student authenticated");
+            window.location.href = 'student-panel.html';
+            return;
+        }
+        
+        // Invalid credentials
+        console.log("Invalid credentials");
+        alert('Invalid username or password. Please try again.');
+    };
+    
+    // Add an event listener for the login form
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM fully loaded");
+        const loginForm = document.getElementById('loginForm');
+        
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                window.authenticateUser(e);
+            });
+            console.log("Login form event listener attached");
+        } else {
+            console.log("Login form not found!");
+        }
+        
+        // Test opening the login form
+        const signInButton = document.querySelector('.hero-buttons .btn-primary');
+        if (signInButton) {
+            console.log("Sign in button found");
+        } else {
+            console.log("Sign in button not found");
+        }
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - MK EXAM PORTAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary-color: #f9fafb;
+            --text-color: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        /* Sidebar styles */
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            box-shadow: var(--shadow-md);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-header {
+            padding: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.8em;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        
+        .logo i {
+            font-size: 1.2em;
+        }
+        
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .sidebar-toggle:hover {
+            color: var(--text-color);
+        }
+        
+        .admin-info {
+            padding: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .admin-details h4 {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .admin-details p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .nav-menu {
+            padding: 1.5em 0;
+        }
+        
+        .menu-category {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0 1.5em;
+            margin-bottom: 0.5em;
+        }
+        
+        .nav-item {
+            display: block;
+            padding: 0.8em 1.5em;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8em;
+            transition: all 0.2s;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .nav-badge {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2em 0.6em;
+            border-radius: 1em;
+            margin-left: auto;
+        }
+        
+        /* Main content styles */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .top-bar {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            padding: 1em 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .mobile-toggle:hover {
+            color: var(--text-color);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 0.5em 1em;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: none;
+            padding: 0.5em;
+            width: 100%;
+            outline: none;
+            color: var(--text-color);
+        }
+        
+        .search-bar i {
+            color: var(--text-muted);
+        }
+        
+        .top-nav {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        
+        .nav-button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .nav-button:hover {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--error-color);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dashboard {
+            padding: 2em;
+        }
+        
+        .page-title {
+            margin-bottom: 1.5em;
+        }
+        
+        .page-title h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3em;
+        }
+        
+        .page-title p {
+            color: var(--text-muted);
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5em;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1em;
+        }
+        
+        .stat-title {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .stat-icon.primary {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        .stat-icon.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+        
+        .stat-icon.warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .stat-icon.info {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info-color);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.3em;
+        }
+        
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .stat-change.positive {
+            color: var(--success-color);
+        }
+        
+        .stat-change.negative {
+            color: var(--error-color);
+        }
+        
+        .recent-exams {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2em;
+        }
+        
+        .card-header {
+            padding: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1em 1.5em;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tbody tr:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .status-badge {
+            padding: 0.4em 0.8em;
+            border-radius: 1em;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .status-active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+        
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .status-completed {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info-color);
+        }
+        
+        .action-button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+        
+        .action-button:hover {
+            color: var(--primary-color);
+        }
+        
+        .recent-activity {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .activity-list {
+            padding: 0 1.5em;
+        }
+        
+        .activity-item {
+            padding: 1.5em 0;
+            display: flex;
+            gap: 1em;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-message {
+            margin-bottom: 0.5em;
+        }
+        
+        .activity-message strong {
+            font-weight: 600;
+        }
+        
+        .activity-time {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .btn {
+            padding: 0.6em 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-outline {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .logout-section {
+            padding: 1.5em;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+        
+        .logout-button {
+            display: flex;
+            align-items: center;
+            gap: 0.8em;
+            color: var(--error-color);
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5em;
+            width: 100%;
+            text-align: left;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .logout-button:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-toggle {
+                display: block;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .search-bar {
+                width: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .top-bar {
+                padding: 1em;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                MK EXAM PORTAL
+            </a>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="admin-info">
+            <div class="admin-avatar">
+                M
+            </div>
+            <div class="admin-details">
+                <h4>Miruthul Kumar</h4>
+                <p>Administrator</p>
+            </div>
+        </div>
+        
+        <nav class="nav-menu">
+            <p class="menu-category">Dashboard</p>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Overview</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            
+            <p class="menu-category">Exam Management</p>
+            <a href="#" class="nav-item">
+                <i class="fas fa-file-alt"></i>
+                <span>Exams</span>
+                <span class="nav-badge">42</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Question Bank</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-clock"></i>
+                <span>Schedules</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-user-graduate"></i>
+                <span>Results</span>
+            </a>
+            
+            <p class="menu-category">User Management</p>
+            <a href="#" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Students</span>
+                <span class="nav-badge">5k+</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Teachers</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-user-shield"></i>
+                <span>Admins</span>
+            </a>
+            
+            <p class="menu-category">System</p>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <span class="nav-badge">18</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Security</span>
+            </a>
+        </nav>
+        
+        <div class="logout-section">
+            <button class="logout-button" onclick="window.location.href='index.html'">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="top-bar">
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            
+            <div class="top-nav">
+                <button class="nav-button">
+                    <i class="far fa-bell"></i>
+                    <span class="notification-badge">5</span>
+                </button>
+                <button class="nav-button">
+                    <i class="far fa-envelope"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="nav-button">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+                <p>Welcome back, Miruthul Kumar! Here's what's happening with your exams today.</p>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Total Students</span>
+                        <div class="stat-icon primary">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">5,842</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>12.5% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Active Exams</span>
+                        <div class="stat-icon success">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>8.2% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Completion Rate</span>
+                        <div class="stat-icon warning">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">88.3%</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>3.7% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Average Score</span>
+                        <div class="stat-icon info">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">76.4%</div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>2.1% from last month</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-exams">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Exams</h2>
+                    <button class="btn btn-outline">View All</button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Exam Name</th>
+                                <th>Subject</th>
+                                <th>Students</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mid-term Assessment</td>
+                                <td>Computer Science</td>
+                                <td>245</td>
+                                <td>Mar 25, 2025</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    <button class="action-button"><i class="fas fa-edit"></i></button>
+                                    <button class="action-button"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Final Examination</td>
+                                <td>Mathematics</td>
+                                <td>312</td>
+                                <td>Mar 23, 2025</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    <button class="action-button"><i class="fas fa-edit"></i></button>
+                                    <button class="action-button"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Database Design Quiz</td>
+                                <td>Database Systems</td>
+                                <td>178</td>
+                                <td>Mar 20, 2025</td>
+                                <td><span class="status-badge status-completed">Completed</span></td>
+                                <td>
+                                    <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    <button class="action-button"><i class="fas fa-edit"></i></button>
+                                    <button class="action-button"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Programming Fundamentals</td>
+                                <td>Java</td>
+                                <td>195</td>
+                                <td>Mar 18, 2025</td>
+                                <td><span class="status-badge status-completed">Completed</span></td>
+                                <td>
+                                    <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    <button class="action-button"><i class="fas fa-edit"></i></button>
+                                    <button class="action-button"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Network Security</td>
+                                <td>Cybersecurity</td>
+                                <td>132</td>
+                                <td>Apr 02, 2025</td>
+                                <td><span class="status-badge status-pending">Scheduled</span></td>
+                                <td>
+                                    <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    <button class="action-button"><i class="fas fa-edit"></i></button>
+                                    <button class="action-button"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="recent-activity">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Activity</h2>
+                    <button class="btn btn-outline">View All</button>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-message"><strong>Rahul Singh</strong> created a new exam: <strong>Data Structures and Algorithms</strong></p>
+                            <p class="activity-time">2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-message"><strong>25 students</strong> completed <strong>Mid-term Assessment</strong></p>
+                            <p class="activity-time">4 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-message"><strong>Prof. Anjali Sharma</strong> updated the question bank for <strong>Java Programming</strong></p>
+                            <p class="activity-time">Yesterday, 16:42</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-message"><strong>45 new students</strong> were added to the system</p>
+                            <p class="activity-time">Yesterday, 11:20</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-message">System maintenance completed successfully</p>
+                            <p class="activity-time">Mar 24, 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Mobile sidebar toggle
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.add('open');
+        });
+        
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('open');
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const mobileToggle = document.getElementById('mobileToggle');
+            
+            if (window.innerWidth <= 992 && sidebar.classList.contains('open') && 
+                !sidebar.contains(event.target) && event.target !== mobileToggle) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
